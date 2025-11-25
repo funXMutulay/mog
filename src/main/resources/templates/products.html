@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head >
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width , initial-scale=1.0"  >
+        <meta http-equiv="X-UA-Compatible" content="ie-edge"  >
+        <meta http-equiv="Content-Type" content="text/html ; charset=UTF-8" />
+        <link rel="shortcut icon" href="assets/img/apachChach.png">
+        <!-- Bootstrap core CSS -->
+        <link href="assets/css/bootstrap.css" rel="stylesheet">
+    
+    
+        <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+    
+        <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+        
+        
+        <script src="https://unpkg.com/htmx.org@1.9.3"></script>
+        <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+        
+         <title>
+            Products
+        </title>
+        
+        <style>
+
+            :root{
+                ---gutter :0.5em;
+            }
+
+            body{
+                padding: var(--gutter)
+            }
+
+            .line {
+
+                border-top: 1px solid black;
+                margin-top: var(--gutter);
+                padding-top: var(--gutter);
+            }
+
+
+            .product .nom input[type=text]{
+                width: calc(30% - var(--gutter));
+            } 
+            .product .descriptif input[type=text]{
+                width: calc(30% - var(--gutter));
+            }
+            .product .label input[type=text]{
+                width: calc(30% - var(--gutter));
+            }
+            .product .prix input[type=text]{
+                width: calc(30% - var(--gutter));
+            }
+            
+            .product .stocks input[type=text]{
+                width: calc(30% - var(--gutter));
+            }
+
+            .product .image input[type=file]{
+                width: calc(30% - var(--gutter));
+            }
+           
+
+            .product {
+                grid-gap: var(--gutter);
+                display: grid;
+                grid: 'id  nom descriptif label prix stocks image buttons' ;
+                grid-template-columns: 3vw auto 20vw;
+            }
+
+            
+            .product .id {
+                grid-area: id;
+                
+            }
+            .product .nom {
+                grid-area: nom ;
+                
+            }
+            
+            .product .descriptif {
+                grid-area: descriptif ;     
+            }
+
+            
+            .product .label {
+                grid-area: label ;     
+            }
+
+            .product .prix{
+                grid-area: prix ;
+                
+            }
+            .product .stocks {
+                grid-area: stocks ;
+                
+            }
+            .product .image {
+                grid-area: image ;
+                
+            }
+           
+            
+            .product .buttons {
+                grid-area: buttons ;
+            }
+
+            .image-height{
+                height: 6rem;
+            }
+            .navbar text{
+                color: rgb(9, 0, 139);
+            }
+            div.container {
+  margin: 10px;
+  width: 100%;
+  height: 100%;
+  padding: 2px;
+  /* background-color: black; */
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.child {
+  flex: 1;
+  flex-basis: 20%;
+  background-color: #2c66216e ;
+  margin: 2px;
+}
+            
+
+        </style>
+    </head>
+    <body>
+        
+        <div class="container mx-auto">
+                
+            <div class="container mx-auto" >
+
+                <div th:replace="~{navbar :: navbarFragment}" role="navigation">
+                </div>
+            </div>
+            
+            <div class="container mx-auto  row"> 
+                
+        
+                <div class="col-sm mx-auto">
+                    <div th:replace="~{products-form::productsformFragment}" 
+                    class="products-form"  
+                    > 
+                    </div>  
+                </div>
+
+                <div class="col-sm mx-auto">
+                    <div  th:replace="~{products-list::productslistFragment}" 
+                    class="products-list" >
+                
+                    </div>        
+                </div>
+
+
+
+
+            </div>    
+    
+      
+
+        </div>
+
+<script>
+        $(document).ready(function(){
+            $('#fileImage').on('change',function () {
+
+                fileSize= this.files[0].size;
+                // 1MB = 1024 * 1024
+                if(fileSize > 1048576){
+                    $('#ImageError').removeClass('hidden');
+                } else {
+                    $('#ImageError').addClass('hidden');
+                    showThumbnail(this);
+                }
+              })
+        });
+
+        function showThumbnail(fileInput) {
+                    var file = fileInput.files[0];
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#thumbnail').attr('src', e.target.result);
+                  }
+
+                  reader.readAsDataURL(file);
+              }
+    </script>
+    
+
+    
+
+    </body>
+</html>

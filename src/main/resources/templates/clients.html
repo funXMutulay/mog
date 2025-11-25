@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head >
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width , initial-scale=1.0"  >
+        <meta http-equiv="X-UA-Compatible" content="ie-edge"  >
+        <meta http-equiv="Content-Type" content="text/html ; charset=UTF-8" />
+        <link rel="shortcut icon" href="assets/img/apachChach.png">
+        <!-- Bootstrap core CSS -->
+        <link href="assets/css/bootstrap.css" rel="stylesheet">
+    
+
+        <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+    
+        <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+    
+        
+        <title>
+            CLIENTS
+        </title>
+        <script src="https://unpkg.com/htmx.org@1.9.3"></script>
+        <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+        <style>
+
+            :root{
+                ---gutter :0.5em;
+                background-color: cornsilk;
+            }
+
+            body{
+                padding: var(--gutter)
+            }
+
+            .line {
+
+                border-top: 1px solid black;
+                margin-top: var(--gutter);
+                padding-top: var(--gutter);
+            }
+
+            
+
+            .client .nom input[type=date]{
+                width: calc(30% - var(--gutter));
+            } 
+            .client .prenom input[type=text]{
+                width: calc(30% - var(--gutter));
+            }
+            .client .email input[type=text]{
+                width: calc(30% - var(--gutter));
+            }
+            
+            .client .telephone input[type=text]{
+                width: calc(30% - var(--gutter));
+            }
+            .client .photo input[type=file]{
+                width: calc(30% - var(--gutter));
+            }
+           
+
+            .client {
+                grid-gap: var(--gutter);
+                display: grid;
+                grid: 'id  prenom nom email telephone photo buttons' ;
+                grid-template-columns: 3vw auto 20vw;
+            }
+
+            
+            .client .id {
+                grid-area: id;
+                
+            }
+            .client .nom {
+                grid-area: nom ;
+                
+            }
+            
+            .client .prenom {
+                grid-area: prenom ;
+                
+            }
+            .client .email{
+                grid-area: email ;
+                
+            }
+            .client .telephone {
+                grid-area: telephone ;
+                
+            }
+             .client .photo {
+                grid-area: photo ;
+                
+            }
+           
+            
+            .client .buttons {
+                grid-area: buttons ;
+            }
+            
+            .image-height{
+                height: 6rem;
+            }
+            .navbar text{
+                color: rgb(9, 0, 139);
+            }
+
+        </style>
+    </head>
+    <body>
+        
+        <hr>
+        <hr>
+
+         <div class="container">
+        
+        <div  class="center navbar" id="navMenu" role="navigation">
+            
+           <a th:href="@{/}" >| HOME |</a>
+            <a th:href="@{Products}" > ProductS | </a>
+            <a th:href="@{factures}" > MESURES |</a>
+            <a th:href="@{/clients}" > CLIENT |</a>
+            <a th:href="@{Products}" > CHARGES | </a>
+            <a th:href="@{factures}" > FACTURES |</a>
+        </div>
+        
+        
+        <hr>
+        <hr>
+        
+            
+        <div th:fragment="clients-list" class="clients-list" >
+
+           
+            
+                <div class="titleTop " > 
+                <h2> 
+                    <span 
+                        style="border-bottom: 3px solid rgb(9, 0, 139);
+                                border-right: 3px solid rgb(9, 0, 139);
+                                border-radius: 9px;width: 20%;
+                                padding-left: 20%;
+                                padding-right: 10%;
+                                margin-left: 20%;">
+                             CLIENTS
+                        </span>
+                    </h2>
+            </div>
+        
+            <div class="client line" th:each="client : ${clients}">
+                
+                <div class="id" >
+                    <span th:text="${client.id}"></span>
+                </div>
+                <div class="nom" >
+                    <span th:text="${client.nom}"></span>
+                </div>
+
+                <div class="prenom" >
+                    <span th:text="${client.prenom}"></span>
+                </div>
+                
+                <div class="email" >
+                    <span th:text="${client.email}"></span>
+                </div>
+                
+                <div class="telephone" >
+                    <span th:text="${client.telephone}"></span>
+                </div>
+
+                <div class="photo" >
+                    <image th:src="@{${client.photosPath}}"  style="height:50px;zidth:50px;"  class="w-auto img-thumbnail bordered bordered-primary rounded p-1" alt="preview"></imqge>
+                </div>
+                
+               
+                
+                <div class="buttons">
+                    <button hx-get="@{/edit-client}"
+                         hx-target="#client-list" 
+                         hx-swap="outerHTML"
+                            data-bs-toogle="/edit-client"
+                            data-bs-target="#client-list"
+                            >
+                        EDITER
+                    </button>
+                    <button hx-confirm="veuillez confirmer ! "
+                            th:attr="hx-delete=@{/clients/{id}(id=${client.id})}" 
+                            hx-swap="outerHTML"
+                            hx-target="closest .client">
+                        DELETE
+                    </button>
+                </div>
+            </div>
+            
+</div>
+        </div>  
+<hr>
+<hr>
+<hr>
+<hr>
+      <div th:fragment="clients-form" 
+            class="clients-form"  
+            id="clients-form" 
+            hx-swap-oob="true" 
+            hx-on::after-request="if(event.detail.successful) this.reset()"
+            >
+            
+            <div class="container">
+         
+            <div class="titre"> 
+                <h2 class="display-1" > 
+                    <span 
+                         style="border-bottom: 3px solid rgb(9, 0, 139);
+                            border-right: 3px solid rgb(9, 0, 139);
+                            border-radius: 9px;width: 20%;
+                            padding-left: 20%;
+                            padding-right: 10%;
+                            margin-left: 20%;"
+                    >
+                            AJOUT CLIENTS
+                        </span>
+                    </h2>
+            </div>
+        
+        <form th:action="@{/clients/addNew}" 
+                hx-target=".clients-list"  
+                hx-post="/clients/addNew"
+              name="client"
+              style="margin:0 auto;"
+              enctype="multipart/form-data">
+                
+                
+              <div class="row ">
+                <div class="form-group col-md-3">
+                    <input type="text" 
+                           class="form-control" 
+                           placeholder="nom" 
+                           id="nom" 
+                           name="nom" >
+                  </div>
+            
+                <div class="form-group col-md-3">
+                    <input type="text"  
+                           class="form-control" 
+                           placeholder="prenom" 
+                           id="prenom" 
+                           name="prenom" >
+                  </div>
+                  
+            </div>
+            
+            <div class="row ">
+                <div class="form-group col-md-3 ">
+                    <input type="text" 
+                           class="form-control" 
+                           placeholder="email" 
+                           id="email" 
+                           name="email" >
+                  </div>
+            
+                  <div class="form-group col-md-3">
+                    <input type="text" 
+                           class="form-control" 
+                           placeholder="telephone" 
+                           id="telephone" 
+                           name="telephone" >
+                  </div>
+
+                  <div class="form-group col-md-3">
+                    <input type="file" 
+                           class="form-control" 
+                           placeholder="fileImage" 
+                           id="fileImage" 
+                           name="file"
+                           accept=":image/jpeg,image/png" >
+
+                    <p id="ImageError" class="hidden text-muted">
+                        File siwe exceeds 1MB. Please upload a smaller image
+                    </p>       
+                  </div>
+                  
+                  <div >
+                    <img th:src="@{assets/img/user.png}" id="thumbnail" class=" image-height w-auto " alt="preview image" >
+                  </div>
+            
+                
+            </div>
+
+
+
+            <div class="row ">
+                <div class="buttons col-md-2">
+                    <button 
+                       
+                        type="submit"
+                        class="btn btn-primary">Save
+                        </button>    
+                </div>
+      
+  
+          </div>          
+                    
+                  
+                  
+              
+           </form>
+         
+                    </div>
+  
+      
+
+                </div>
+
+            </div>
+    </div>
+  
+    <script>
+        $(document).ready(function(){
+            $('#fileImage').on('change',function () {
+
+                fileSize= this.files[0].size;
+                // 1MB = 1024 * 1024
+                if(fileSize > 1048576){
+                    $('#ImageError').removeClass('hidden');
+                } else {
+                    $('#ImageError').addClass('hidden');
+                    showThumbnail(this);
+                }
+              })
+        });
+
+        function showThumbnail(fileInput) {
+                    var file = fileInput.files[0];
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#thumbnail').attr('src', e.target.result);
+                  }
+
+                  reader.readAsDataURL(file);
+              }
+    </script>
+
+    </body>
+</html>

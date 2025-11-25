@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head >
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width , initial-scale=1.0"  >
+        <meta http-equiv="X-UA-Compatible" content="ie-edge"  >
+        <meta http-equiv="Content-Type" content="text/html ; charset=UTF-8" />
+        <link rel="shortcut icon" href="assets/img/apachChach.png">
+        <!-- Bootstrap core CSS -->
+        <link href="assets/css/bootstrap.css" rel="stylesheet">
+    
+    
+        <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+    
+        <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+        
+        
+        <script src="https://unpkg.com/htmx.org@1.9.3"></script>
+        <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+        <style>
+
+            :root{
+                ---gutter :0.5em;
+            }
+
+            body{
+                padding: var(--gutter)
+            }
+
+            .line {
+
+                border-top: 1px solid black;
+                margin-top: var(--gutter);
+                padding-top: var(--gutter);
+            }
+
+
+            .product {
+                grid-gap: var(--gutter);
+                display: grid;
+                grid: 'id  nom descriptif label categorie prix stocks image buttons' ;
+                grid-template-columns: inherit;
+            }
+
+            
+            .product .id {
+                grid-area: id;
+                
+            }
+            .product .nom {
+                grid-area: nom ;
+                
+            }
+            
+            .product .descriptif {
+                grid-area: descriptif ;
+            }
+             .product .label {
+                grid-area: label ;
+            }
+            .product .categorie {
+                grid-area: categorie ;
+            }   
+            .product .prix{
+                grid-area: prix ;
+                
+            }
+            .product .stocks {
+                grid-area: stocks ;
+                
+            }
+            .product .image {
+                grid-area: image ;
+                
+            } 
+           
+            
+            .product .buttons {
+                grid-area: buttons ;
+            }
+
+            .image-height{
+                height: 6rem;
+            }
+
+        </style>
+    </head>
+    <body>
+        
+         <div class="container">
+
+        <div  th:fragment="productslistFragment"  
+              class="products-list" 
+              id="productslistFragment">
+            
+            <div class="titleTop" > 
+                        <h2> 
+                            <span 
+                            style="border-bottom: 3px solid darkcyan;
+                                    border-right: 3px solid darkcyan;
+                                    border-radius: 9px;width: 20%;
+                                    padding-left: 20%;
+                                    padding-right: 10%;
+                                    margin-left: 20%;">
+                                    PRODUITS
+                                </span>
+                        </h2>
+             </div>
+
+                <div class="product line" th:each="product : ${products}">
+                    
+                    <div class="id" >
+                        <span th:text="${product.id}"></span>
+                    </div>
+                    <div class="nom" >
+                        <span th:text="${product.nom}"></span>
+                    </div>
+
+                    <div class="descriptif" >
+                        <span th:text="${product.descriptif}"></span>
+                    </div>
+                    
+                    <div class="label" >
+                        <span th:text="${product.label}"></span>
+                    </div>
+
+                    
+                    <div class="categorie" >
+                        <span th:text="${product.categorie}"></span>
+                    </div>
+
+                    <div class="prix" >
+                        <span th:text="${product.prix}"></span>
+                    </div>
+                    
+                    <div class="stocks" >
+                        <span th:text="${product.stocks}"></span>
+                    </div>
+                    <div class="image" >
+                        <image alt="" th:src="@{${product.imagesPath}}" style ="width:100px;height:100px;"></image>
+                    </div>
+                    
+                    <div class="buttons">
+                        <button th:hx-get="@{/edit-product}"
+                            hx-target="#products-list" 
+                            hx-swap="outerHTML"
+                            >
+                            EDITER
+                        </button>
+                        <button hx-confirm="veuillez confirmer ! "
+                                th:attr="hx-delete=@{/products/{id}(id=${product.id})}" 
+                                hx-swap="outerHTML"
+                                hx-target="closest .product">
+                            DELETE
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>  
+
+    </body>
+</html>

@@ -1,0 +1,114 @@
+<div th:fragment= "edit-client" 
+    hx-swap-oob="outerHTML"
+     >
+	<div id="modal"
+    _="on closeModal add .closing then wait for animationend then remove me">
+    
+      <div class="modal-underlay" _="on click trigger closeModal"></div>
+	<div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title"> Editer Chapitre</h5>
+        </div>
+        
+        <div class="modal-body">
+
+
+<form th:action="@{/clients/edit}" 
+       method="post" 
+       th:object="${client}" 
+       name="client"
+       style="margin:0 auto;">
+                
+  
+
+    <div class="row"> 
+        <div class="form-group col-md-3" >
+            <span th:text="id" ></span>
+            <input type="number"
+                    
+                   class="form-control" 
+                   placeholder="id" 
+                   id="id" 
+                   name="id" >
+          </div>
+          
+    </div>
+
+    <div class="row"> 
+        <div class="form-group col-md-3">
+            <input type="te"  
+                   class="form-control" 
+                   placeholder="nom" 
+                   id="nom" 
+                   name="nom" >
+          </div>
+          
+    </div>
+    <div class="row">
+        <div class="form-group col-md-3">
+            <input type="text" 
+                   class="form-control" 
+                   placeholder="prenom" 
+                   id="prenom" 
+                   name="prenom" >
+          </div>
+    </div>
+    
+    <div class="row">
+        <div class="form-group col-md-3">
+            <input type="text" 
+                   class="form-control" 
+                   placeholder="email" 
+                   id="email" 
+                   name="email" >
+          </div>
+    </div>
+    
+    <div class="row"> 
+        <div class="form-group col-md-3">
+            <input type="text"  
+                   class="form-control" 
+                   placeholder="telephone" 
+                   id="telephone" 
+                   name="telephone" >
+          </div>
+          
+    </div>
+
+    <div class="row"> 
+        <div class="form-group col-md-3">
+            <input type="file"  
+                   class="form-control" 
+                   placeholder="fileImage" 
+                   id="fileImage" 
+                   name="fileImage" >
+          </div>
+          
+    </div>
+    
+    <div class="row col-md-2">
+        <button
+         hx-include = "new-client"
+         hx-target=".clients-list" 
+         hx-post="/clients/editPost"
+         type="submit"
+         class="btn btn-success">
+         Save
+        </button>
+        <button
+         hx-get="/clients/clients-form"
+         type="reset"
+         class="btn btn-success">
+         Reset
+        </button>
+    </div>
+      
+   </form>
+        </div>
+        <div class="modal-footer">
+            <button _="on click trigger closeModal">Close</button>
+        </div>
+
+		
+	</div>
+</div>

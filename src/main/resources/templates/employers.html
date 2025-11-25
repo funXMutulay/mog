@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>
+            couture
+        </title>
+    </head>
+    <body>
+        <h2>COUTURE MANAGEMENT INDEX</h2>
+        <div  align="center">
+            <a th:href="@{Products}" >ProductS</a>
+            <a th:href="@{mesures}" >MESURES</a>
+            <a th:href="@{clients}" >CLIENTS</a>
+            <a th:href="@{locations}">LOCATIONS</a>
+        </div>
+
+        <ul>
+            <li th:each="location : ${locations}">
+                <span th:text="${location.city}">Default</span>
+            </li>
+        </ul>
+    </body>
+</html>

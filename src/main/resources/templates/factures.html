@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head >
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width , initial-scale=1.0"  >
+        <meta http-equiv="X-UA-Compatible" content="ie-edge"  >
+        <meta http-equiv="Content-Type" content="text/html ; charset=UTF-8" />
+        <link rel="shortcut icon" href="assets/img/apachChach.png">
+        <!-- Bootstrap core CSS -->
+        <link href="assets/css/bootstrap.css" rel="stylesheet">
+    
+        <!-- Custom styles for this template -->
+        <link href="assets/css/main.css" rel="stylesheet">
+    
+        <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+    
+        <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+    
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+        
+        <script src="assets/js/modernizr.custom.js"></script>
+        <title>
+            FACTURES
+        </title>
+        <script src="https://unpkg.com/htmx.org@1.9.3"></script>
+        <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+        <style>
+
+            :root{
+                ---gutter :0.5em;
+            }
+
+            body{
+                padding: var(--gutter)
+            }
+
+            .line {
+
+                border-top: 1px solid black;
+                margin-top: var(--gutter);
+                padding-top: var(--gutter);
+            }
+
+            
+
+            .facture .dateFacture input[type=date]{
+                width: calc(30% - var(--gutter));
+            } 
+            .facture .client input[type=text]{
+                width: calc(30% - var(--gutter));
+            }
+            .facture .status input[type=text]{
+                width: calc(30% - var(--gutter));
+            }
+            
+            .facture .montant input[type=text]{
+                width: calc(30% - var(--gutter));
+            }
+            .facture .remarques input[type=text]{
+                width: calc(30% - var(--gutter));
+            }
+
+            .facture {
+                grid-gap: var(--gutter);
+                display: grid;
+                grid: 'id  client dateFacture status montant remarques buttons' ;
+                grid-template-columns: 3vw auto 20vw;
+            }
+
+            
+            .facture .id {
+                grid-area: id;
+                
+            }
+            .facture .dateFacture {
+                grid-area: dateFacture ;
+                
+            }
+            
+            .facture .client {
+                grid-area: client ;
+                
+            }
+            .facture .status{
+                grid-area: status ;
+                
+            }
+            .facture .montant {
+                grid-area: montant ;
+                
+            }
+            .facture .remarques{
+                grid-area: remarques ;
+                
+            }
+            
+            .facture .buttons {
+                grid-area: buttons ;
+            }
+
+        
+
+        </style>
+    </head>
+    <body>
+        
+        <hr>
+        <hr>
+        
+        <div  align ="center " id="navMenu" class="h-100 d-flex justify-content-center align-items-center" >
+            <a th:href="@{/}" > HOME |</a>
+            <a th:href="@{Products}" > ProductS | </a>
+            <a th:href="@{factures}" > MESURES |</a>
+            <a th:href="@{/clients}" > CLIENT |</a>
+            <a th:href="@{Products}" > CHARGES | </a>
+            <a th:href="@{factures}" > FACTURES</a>
+        </div>
+        
+        
+        <hr>
+        <hr>
+        
+            
+        <div th:fragment="factures-list" class="factures-list" >
+
+            <div class="container">
+            
+                <div class="titleTop " > 
+                <h2> 
+                    <span 
+                        style="border-bottom: 3px solid darkcyan;
+                                border-right: 3px solid darkcyan;
+                                border-radius: 9px;width: 20%;
+                                padding-left: 20%;
+                                padding-right: 10%;
+                                margin-left: 20%;">
+                             FACTURES
+                        </span>
+                    </h2>
+            </div>
+        
+            <div class="facture line" th:each="facture : ${factures}">
+                
+                <div class="id" >
+                    <span th:text="${facture.id}"></span>
+                </div>
+                <div class="dateFacture" >
+                    <span th:text="${facture.dateFacture}"></span>
+                </div>
+
+                <div class="client" >
+                    <span th:text="${facture.client}"></span>
+                </div>
+                
+                <div class="status" >
+                    <span th:text="${facture.status}"></span>
+                </div>
+                
+                <div class="montant" >
+                    <span th:text="${facture.montant}"></span>
+                </div>
+                
+                <div class="remarques" >
+                    <span th:text="${facture.remarques}"></span>
+                </div>
+                
+                <div class="buttons">
+                    
+                    <button
+                    hx-get="/edit-facture"
+                    hx-target="#modals-here"
+                    hx-trigger="click"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modals-here"
+                    class="btn primary">Open Modal</button>
+
+                        
+                    <button hx-get="@{/edit-facture}"
+                           hx-target="#factures-list" 
+                         hx-swap="innerHTML"
+                            data-bs-toogle="/edit-facture"
+                            data-bs-target="#facture-list"
+                            >
+                        EDITER
+                    </button>
+                    <button hx-confirm="veuillez confirmer ! "
+                            th:attr="hx-delete=@{/factures/{id}(id=${facture.id})}" 
+                            hx-swap="outerHTML"
+                            hx-target="closest .facture">
+                        DELETE
+                    </button>
+                </div>
+            </div>
+
+
+             </div>
+
+                        <div id="modals-here"
+                            class="modal modal-blur fade"
+                            style="display: none"
+                            aria-hidden="false"
+                            tabindex="-1">
+                            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    mouni ana modal bi
+                                </div>
+                            </div>
+                        </div>
+               
+    
+
+        </div>  
+
+        
+        <hr>
+        <hr>
+
+      <div th:fragment="factures-form" 
+            class="factures-form"  
+            id="factures-form" 
+            hx-swap-oob="true">
+            
+            <div class="container">
+         
+            <div class="titre"> 
+                <h2> 
+                    <span 
+                    style="border-bottom: 3px solid darkcyan;
+                            border-right: 3px solid darkcyan;
+                            border-radius: 9px;width: 20%;
+                            padding-left: 20%;
+                            padding-right: 10%;
+                            margin-left: 20%;">
+                            AJOUT FACTURES
+                        </span>
+                    </h2>
+            </div>
+        
+        <form th:action="@{/factures/addNew}" 
+              method="post" 
+              th:object="${facture}" 
+              name="new-facture"
+              style="margin:0 auto;">
+                
+                
+              <div class="row ">
+                <div class="form-group col-md-3">
+                    <input type="date" 
+                           class="form-control" 
+                           placeholder="dateFacture" 
+                           id="dateFacture" 
+                           name="dateFacture" >
+                  </div>
+            
+                <div class="form-group col-md-3">
+                    <input type="text"  
+                           class="form-control" 
+                           placeholder="client" 
+                           id="client" 
+                           name="client" >
+                  </div>
+                  
+            </div>
+            
+            <div class="row ">
+                <div class="form-group col-md-3 ">
+                    <input type="text" 
+                           class="form-control" 
+                           placeholder="status" 
+                           id="status" 
+                           name="status" >
+                  </div>
+            
+                  <div class="form-group col-md-3">
+                    <input type="text" 
+                           class="form-control" 
+                           placeholder="montant" 
+                           id="montant" 
+                           name="montant" >
+                  </div>
+            
+                <div class="form-group col-md-3 ">
+                    <input type="text" 
+                           class="form-control" 
+                           placeholder="remarques" 
+                           id="remarques" 
+                           name="remarques" >
+                  </div>
+            </div>
+
+            <div class="row ">
+                <div class="buttons col-md-2">
+                    <button 
+                        hx-include = "new-facture"
+                        hx-target=".factures-list" 
+                        hx-post="/factures/addNew"
+                        type="submit"
+                            class="btn btn-primary">Save
+                        </button>    
+                </div>
+      
+  
+          </div>          
+                    
+                  
+                  
+              
+           </form>
+         
+  </div>
+  
+      
+
+</div>
+
+</div>
+</div>
+
+
+
+ 
+
+
+    </body>
+</html>

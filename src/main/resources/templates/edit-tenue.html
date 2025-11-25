@@ -1,0 +1,106 @@
+<div th:fragment= "edit-Product" >
+	
+    <div id="modal" _="on closeModal add .closing then wait for animationend then remove me">
+    
+      <div class="modal-underlay" _="on click trigger closeModal"></div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"> Product</h5>
+                    </div>
+                    
+                    <div class="modal-body">
+
+
+                        <form th:action="@{/Products/edit}" 
+                              method="post" 
+                              name="Product"
+                              style="margin:0 auto;">
+                                        
+                        
+
+                            <div class="row"> 
+                                <div class="form-group col-md-3" >
+                                    <span th:text="id" ></span>
+                                    <input type="number"
+                                            
+                                        class="form-control" 
+                                        placeholder="id" 
+                                        id="id" 
+                                        name="id" >
+                                </div>
+                                
+                            </div>
+                            <div class="row"> 
+                                <div class="form-group col-md-3">
+                                    <input type="te"  
+                                        class="form-control" 
+                                        placeholder="nom" 
+                                        id="nom" 
+                                        name="nom" >
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <input type="text" 
+                                        class="form-control" 
+                                        placeholder="style" 
+                                        id="style" 
+                                        name="style" >
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <input type="text" 
+                                        class="form-control" 
+                                        placeholder="prix" 
+                                        id="prix" 
+                                        name="prix" >
+                                </div>
+                            </div>
+                            
+                            <div class="row"> 
+                                <div class="form-group col-md-3">
+                                    <input type="number"  
+                                        class="form-control" 
+                                        placeholder="stocks" 
+                                        id="stocks" 
+                                        name="stocks" >
+                                </div>
+                                
+                            </div>
+
+                            <div class="row">
+                                    <div class="form-group  custom-file md3">
+                                        <input type="file" 
+                                            class="custom-file input" 
+                                            placeholder="image produit" 
+                                            id="file" 
+                                            name="file" >
+                                    </div>
+                            </div>
+                            
+                            <div class="row col-md-2">
+                                <button
+                                hx-include = "new-Product"
+                                hx-target=".Products-list" 
+                                hx-post="/Products/editPost"
+                                type="submit"
+                                class="btn btn-success">
+                                Save
+                                </button>
+                                
+                            </div>
+                            
+                        </form>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button _="on click trigger closeModal">Close</button>
+                    </div>
+
+                    
+                        </div>
+                  </div>
+       </div>

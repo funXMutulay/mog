@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+
+    <div th:fragment="footerFragment"
+         id="footerFragment"
+         hx-swap-oob="outerHTML:footer"
+         aria-labelledby="summary-heading" class="container">
+       
+         <div class="row">
+        <div class="col-sm-3">
+          
+        </div>
+        <div class="col-sm-6">
+             <div class="media">
+                  <img src="assets/img/apachChach.png" alt="">
+                  <div class="media-body">
+                         <!-- ======= Footer ======= -->
+                        <footer id="footer" class="footer">
+                          <div class="copyright">
+                            &copy; Copyright <strong><span>L!IT Tech</span></strong>. All Rights Reserved
+                          </div>
+                         
+                        </footer><!-- End Footer -->
+
+                        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+                  </div>
+          </div>
+          <div class="col-sm-3">
+          
+        </div>
+
+    
+    </div>
+</body>
+
+

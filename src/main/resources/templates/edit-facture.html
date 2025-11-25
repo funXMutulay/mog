@@ -1,0 +1,111 @@
+<div th:fragment= "edit-facture" 
+    hx-swap-oob="outerHTML"
+     >
+	<div id="modal"
+    _="on closeModal add .closing then wait for animationend then remove me">
+    
+      <div class="modal-underlay" _="on click trigger closeModal"></div>
+	<div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title"> Editer Facture</h5>
+        </div>
+        
+        <div class="modal-body">
+
+
+<form th:action="@{/factures/edit}" 
+       method="post" 
+       th:object="${facture}" 
+       name="facture"
+       style="margin:0 auto;">
+                
+  
+
+    <div class="row"> 
+        <div class="form-group col-md-3" >
+            <span th:text="id" ></span>
+            <input type="number"
+                    
+                   class="form-control" 
+                   placeholder="id" 
+                   id="id" 
+                   name="id" >
+          </div>
+          
+    </div>
+
+    <div class="row"> 
+        <div class="form-group col-md-3">
+            <input type="te"  
+                   class="form-control" 
+                   placeholder="dateFacture" 
+                   id="dateFacture" 
+                   name="dateFacture" >
+          </div>
+          
+    </div>
+    <div class="row">
+        <div class="form-group col-md-3">
+            <input type="text" 
+                   class="form-control" 
+                   placeholder="client" 
+                   id="client" 
+                   name="client" >
+          </div>
+    </div>
+    
+    <div class="row">
+        <div class="form-group col-md-3">
+            <input type="text" 
+                   class="form-control" 
+                   placeholder="status" 
+                   id="status" 
+                   name="status" >
+          </div>
+    </div>
+    
+    <div class="row"> 
+        <div class="form-group col-md-3">
+            <input type="number"  
+                   class="form-control" 
+                   placeholder="montant" 
+                   id="montant" 
+                   name="montant" >
+          </div>
+          
+    </div>
+    <div class="row">
+        <div class="form-group col-md-3">
+            <input type="text" 
+                   class="form-control" 
+                   placeholder="remarques" 
+                   id="remarques" 
+                   name="remarques" >
+          </div>
+    </div>
+    <div class="row col-md-2">
+        <button
+         hx-include = "new-facture"
+         hx-target=".factures-list" 
+         hx-post="/factures/editPost"
+         type="submit"
+         class="btn btn-success">
+         Save
+        </button>
+        <button
+         hx-get="/factures/factures-form"
+         type="reset"
+         class="btn btn-success">
+         Reset
+        </button>
+    </div>
+      
+   </form>
+        </div>
+        <div class="modal-footer">
+            <button _="on click trigger closeModal">Close</button>
+        </div>
+
+		
+	</div>
+</div>
