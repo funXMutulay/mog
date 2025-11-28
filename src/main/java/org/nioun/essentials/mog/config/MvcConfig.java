@@ -33,9 +33,9 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
         public void addCorsMappings(CorsRegistry registry) {
             registry.addMapping("/**") // Apply to all endpoints
-                    .allowedOrigins( "https://localhost:8443/index.html","https://localhost:8443/index.html",
-                                      "https://localhost:8443/corps","https://localhost:8443/visage",
-                                      "http://localhost:8080/**") // Specify allowed origins
+                    .allowedOrigins( "https://zesty-reverence-production-f083.up.railway.app:8443/index.html","https://zesty-reverence-production-f083.up.railway.app:8443/index.html",
+                                      "https://zesty-reverence-production-f083.up.railway.app:8443/corps","https://zesty-reverence-production-f083.up.railway.app:8443/visage",
+                                      "https://zesty-reverence-production-f083.up.railway.app:8443/index.html/**") // Specify allowed origins
                     .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Specify allowed HTTP methods
                     .allowedHeaders("*") // Allow all headers
                     .allowCredentials(false); // Allow sending cookies/authentication headers
