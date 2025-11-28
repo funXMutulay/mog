@@ -36,7 +36,7 @@ public class MvcConfig implements WebMvcConfigurer {
                     .allowedOrigins( "https://zesty-reverence-production-f083.up.railway.app") // Specify allowed origins
                     .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Specify allowed HTTP methods
                     .allowedHeaders("*") // Allow all headers
-                    .allowCredentials(false); // Allow sending cookies/authentication headers
+                    .allowCredentials(true); // Allow sending cookies/authentication headers
         }
 
 }
