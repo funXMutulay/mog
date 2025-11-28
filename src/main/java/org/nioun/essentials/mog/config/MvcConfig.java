@@ -7,6 +7,15 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+
+import org.apache.catalina.connector.Connector;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+
+
+
+
+
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
@@ -38,5 +47,15 @@ public class MvcConfig implements WebMvcConfigurer {
                     .allowedHeaders("*") // Allow all headers
                     .allowCredentials(true); // Allow sending cookies/authentication headers
         }
+
+
+         @Bean
+    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> servletContainerCustomizer() {
+        return factory -> {
+            Connector httpConnector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
+            httpConnector.setPort(8080); // Or 80 for standard HTTP
+            factory.addAdditionalTomcatConnectors(httpConnector);
+        };
+    }
 
 }

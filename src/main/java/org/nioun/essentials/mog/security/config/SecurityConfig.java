@@ -57,7 +57,8 @@ public class SecurityConfig {
 				
 				"/navbar").permitAll() // Example: Allow public access
                 .anyRequest().authenticated())
-                //.cors(Customizer.withDefaults())
+                .cors(Customizer.withDefaults())
+                .redirectToHttps()
                 .httpBasic();                
             return http.build();
         }
