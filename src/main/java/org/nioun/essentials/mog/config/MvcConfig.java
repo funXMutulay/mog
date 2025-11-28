@@ -3,7 +3,7 @@ package org.nioun.essentials.mog.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -29,5 +29,16 @@ public class MvcConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:"+productPhotosPath+"/");
 
     }
+
+    @Override
+        public void addCorsMappings(CorsRegistry registry) {
+            registry.addMapping("/**") // Apply to all endpoints
+                    .allowedOrigins( "https://localhost:8443/index.html","https://localhost:8443/index.html",
+                                      "https://localhost:8443/corps","https://localhost:8443/visage",
+                                      "http://localhost:8080/**") // Specify allowed origins
+                    .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Specify allowed HTTP methods
+                    .allowedHeaders("*") // Allow all headers
+                    .allowCredentials(false); // Allow sending cookies/authentication headers
+        }
 
 }

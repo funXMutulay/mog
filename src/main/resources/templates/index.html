@@ -265,8 +265,8 @@ div.container {
           
                         <div class="product card child " style="border: 3px dashed rgba(40, 235, 144, 0.3);min-width: 18rem;" th:each="product : ${products}">
                                 
-                                <image th:src="@{${product.imagesPath}}"  style="width: 200px;height: 200px;position:relative;"  class="card-img-top
-                                img-thumbnail bordered bordered-primary rounded p-1" alt="preview"></imqge>
+                                <img th:src="@{${product.imagesPath}}"  style="width: 200px;height: 200px;position:relative;"  class="card-img-top
+                                img-thumbnail bordered bordered-primary rounded p-1" alt="preview"></img>
                                 <div class="card-body">
                                     <h5 class="card-title" >
                                       <span th:text="${product.nom}"></span>

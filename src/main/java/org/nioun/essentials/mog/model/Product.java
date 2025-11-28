@@ -14,18 +14,15 @@ import lombok.*;
 import lombok.Data;
 
 @Data
-@Builder
 @Entity
-@Getter
-@Setter
+// @Getter
+// @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Product{
     
    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
     public Integer id;
 
     private String nom;
@@ -41,7 +38,65 @@ public class Product{
     @Transient
     private String imagesPath;
 
+    /**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
+    public String getNom(){
+        return nom;
+    }
+    public void setNom(String nom){
+        this.nom=nom;
+    }
+    public String getDescriptif(){
+        return descriptif;
+    }
+    public void setDescriptif(String descriptif){
+        this.descriptif=descriptif;
+    }
+
+    public String getLabel(String label){
+        return label;}
+
+        
+    public void setLabel(String label){
+        this.label=label;
+    }
+        /**
+	 * @return the prix
+	 */
+	public Integer getPrix() {
+		return prix;
+	}
+	/**
+	 * @param prix the prix to set
+	 */
+	public void setPrix(Integer prix) {
+		this.prix = prix;
+	}
+
+
+	public Integer getStocks() {
+		return stocks;
+	}
+
+	public void setStocks(Integer stocks) {
+		this.stocks = stocks;
+	}
+
+    public void setImage(String image){
+        this.image=image;
+    }
+    
     public String getImagesPath(){
 
         if (id == null || image == null){
@@ -49,4 +104,7 @@ public class Product{
         }
         return "product-photos/"+this.id+"/"+this.image ;
     }
+
+    
+
 }

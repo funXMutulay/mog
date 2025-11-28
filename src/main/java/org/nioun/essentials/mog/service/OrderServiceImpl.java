@@ -42,8 +42,8 @@ public class OrderServiceImpl implements OrderService{
 	}	
 	
 	//Get Order By Id
-	public Optional<Order> findById(int id) {
-		return orderRepository.findById(id);
+	public Order findById(int id) {
+		return orderRepository.getById(id);
 	}	
 	
 	//Delete Order
@@ -65,7 +65,7 @@ public class OrderServiceImpl implements OrderService{
 		validateStock(order , product);
 
 		// update total price in order(Order) entity
-		order.setPrixTotal(order.getQuantite()*product.getPrix());
+		order.setPrixTotal( order.getQuantite() * product.getPrix() );
 
 		// save order
 		Order saveOrder = orderHandler.saveCommand(order);

@@ -12,20 +12,50 @@ import lombok.Builder;
 import lombok.*;
 
 @Data
-@Builder
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Order{
     
    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
     public Integer id;
     private Integer idProduct;
     private Integer prixTotal;
-	private Integer quantite;	  
+	private Integer quantite;	
+
+   
+
+    public Integer getId(){
+        return id;
+    }
+    public void setId(int id){
+        this.id=id;
+    }
+
+    public Integer getIdProduct(){
+        return idProduct;
+    }
+    public void setIdProduct(Integer idProduct){
+        this.idProduct=idProduct;
+    }
+
+    public Integer getPrixTotal(){
+        return prixTotal;
+    }
+    public void setPrixTotal(Integer prixTotal){
+        this.prixTotal=prixTotal;
+    }
+
+    public Integer getQuantite(){
+        return quantite;
+    }
+    public void setQuantite(Integer quantite){
+        this.quantite=quantite;
+    }
+    
+    
+
 }
