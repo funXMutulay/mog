@@ -17,6 +17,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.Customizer;
 import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -29,18 +30,7 @@ public class SecurityConfig {
 
     private static final String [] AUTH_WHITELIST= {
         //SWAGGER UI ...
-                 "/public/**", "/static/**", "/resources/**", "/jsps/**",
-                "/webjars/**","/assets/**","/customer-photos/**","/product-photos/**",
-    			
-    			"/images/**", "/js/**","/css/**","*/png" ,"*/gif",
-    			
-    			"/login/** ","/login","/",
-    			
-				"/index","/products","/products-form","/products-list",
-				
-				"/bebe","/visage","/corps","/footer","/parfum",
-				
-				"/navbar"
+                 
     };
 
          @Bean
@@ -53,8 +43,21 @@ public class SecurityConfig {
             http
                 .csrf(csrf -> csrf.disable()) // Example: Disable CSRF
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers(AUTH_WHITELIST).permitAll() // Example: Allow public access
-                                .anyRequest().authenticated())
+                                .requestMatchers(
+                "/public/**", "/static/**", "/resources/**", "/jsps/**","/templates/**",
+                "/webjars/**","/assets/**","/customer-photos/**","/product-photos/**",
+    			
+    			"/images/**", "/js/**","/css/**","*/png" ,"*/gif",
+    			
+    			"/login/** ","/login","/",
+    			
+				"/index","/products","/products-form","/products-list",
+				
+				"/bebe","/visage","/corps","/footer","/parfum",
+				
+				"/navbar").permitAll() // Example: Allow public access
+                .anyRequest().authenticated())
+                .cors(Customizer.withDefaults())
                 .httpBasic();                
             return http.build();
         }
