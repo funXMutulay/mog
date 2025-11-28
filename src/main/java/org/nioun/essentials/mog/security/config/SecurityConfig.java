@@ -30,17 +30,17 @@ public class SecurityConfig {
     private static final String [] AUTH_WHITELIST= {
         //SWAGGER UI ...
                  "/public/**", "/static/**", "/resources/**", "/jsps/**",
-                "/webjars/**","/assets/**","customer-photos","product-photos",
+                "/webjars/**","/assets/**","/customer-photos/**","/product-photos/**",
     			
     			"/images/**", "/js/**","/css/**","*/png" ,"*/gif",
     			
     			"/login/** ","/login","/",
     			
-				"/index.html","/products.html","/products-form.html","/products-list.html",
+				"/index","/products","/products-form","/products-list",
 				
-				"/bebe.html","/visage.html","/corps.html","/footer.html","/parfum.html",
+				"/bebe","/visage","/corps","/footer","/parfum",
 				
-				"/navbar.html"
+				"/navbar"
     };
 
          @Bean
@@ -53,9 +53,9 @@ public class SecurityConfig {
             http
                 .csrf(csrf -> csrf.disable()) // Example: Disable CSRF
                 .authorizeHttpRequests(auth -> auth
-                .requestMatchers(AUTH_WHITELIST).permitAll() // Example: Allow public access
-                );
-                
+                                .requestMatchers(AUTH_WHITELIST).permitAll() // Example: Allow public access
+                                .anyRequest().authenticated())
+                .httpBasic();                
             return http.build();
         }
 
