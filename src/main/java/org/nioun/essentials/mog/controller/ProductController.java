@@ -42,9 +42,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 
-@CrossOrigin(origins="https://zesty-reverence-production-f083.up.railway.app" , maxAge=3600)
+
  @Controller
-//@RestController
+@CrossOrigin(origins="https://zesty-reverence-production-f083.up.railway.app:8443" , maxAge=3600)
+//@CrossOrigin(origins="https://localhost:8080" , maxAge=3600)
+ //@RestController
 @Tag(name = "Product", description = "Product management APIs")
 public class ProductController {
 

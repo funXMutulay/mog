@@ -45,7 +45,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                                 .requestMatchers(
                 "/public/**", "/static/**", "/resources/**", "/jsps/**","/templates/**",
-                "/webjars/**","/assets/**","/customer-photos/**","/product-photos/**",
+                "/webjars/**","/assets/**","/customer-photos/**","product-photos/**",
     			
     			"/images/**", "/js/**","/css/**","*/png" ,"*/gif",
     			
@@ -57,7 +57,7 @@ public class SecurityConfig {
 				
 				"/navbar").permitAll() // Example: Allow public access
                 .anyRequest().authenticated())
-                .cors(Customizer.withDefaults())
+                //.cors(Customizer.withDefaults())
                 .httpBasic();                
             return http.build();
         }

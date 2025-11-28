@@ -21,7 +21,7 @@ public class Order{
     
    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer id;
+    private Integer id;
     private Integer idProduct;
     private Integer prixTotal;
 	private Integer quantite;	
@@ -38,21 +38,21 @@ public class Order{
     public Integer getIdProduct(){
         return idProduct;
     }
-    public void setIdProduct(Integer idProduct){
+    public void setIdProduct(int idProduct){
         this.idProduct=idProduct;
     }
 
     public Integer getPrixTotal(){
         return prixTotal;
     }
-    public void setPrixTotal(Integer prixTotal){
+    public void setPrixTotal(int prixTotal){
         this.prixTotal=prixTotal;
     }
 
     public Integer getQuantite(){
         return quantite;
     }
-    public void setQuantite(Integer quantite){
+    public void setQuantite(int quantite){
         this.quantite=quantite;
     }
     
